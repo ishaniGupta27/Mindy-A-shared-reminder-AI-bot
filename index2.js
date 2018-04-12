@@ -1,14 +1,14 @@
 var restify=require("restify");
 var builder=require("botbuilder");
-var assert= require('assert');
-var clients= require('restify-clients');
+
 //we are creating a server using restify and it is listening !
 var server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 3978, function(){
+server.listen(process.env.port || process.env.PORT || 3979, function(){
     console.log('%s listening to %s',server.name,server.url)
 });
 //This is where server is listening
 server.post('/health_check_site',function(req,res,next){
+    console.log('Client connected to me');
     res.send(200);
     return next();
 });
@@ -32,11 +32,4 @@ bot.dialog('/',function(session){
     session.send("Hello World");
 });
 
-//Server 1 acting as a client 
-//var clients = require('restify-clients');
-var assert= require('assert');
-var cl1 = clients.createJsonClient('http://127.0.0.1:3979');
-cl1.post('/health_check_site', function(err,req,res){
-       //assert.ifError(err);
-      console.log('%s %d','Connected',res.statusCode);
- });
+
