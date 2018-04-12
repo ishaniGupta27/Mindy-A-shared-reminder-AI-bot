@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/ishaniGupta27/Ckuiz/issues"
   },
-  "homepage": "https://github.com/ishaniGupta27/Ckuiz#readme"
+  "homepage": "https://github.com/ishaniGupta27/Ckuiz#readme",
+  "dependencies": {
+    "botbuilder": "^3.14.1",
+    "restify": "^7.1.1"
+  }
 }
