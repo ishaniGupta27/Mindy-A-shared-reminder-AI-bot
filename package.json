@@ -1,0 +1,26 @@
+{
+  "name": "ckuiz",
+  "version": "1.0.0",
+  "description": "ckuiz inital package.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishaniGupta27/Ckuiz.git"
+  },
+  "keywords": [
+    "quiz",
+    "cortana",
+    "bot",
+    "AI",
+    "hackathon"
+  ],
+  "author": "ishani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ishaniGupta27/Ckuiz/issues"
+  },
+  "homepage": "https://github.com/ishaniGupta27/Ckuiz#readme"
+}
