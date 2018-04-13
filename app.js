@@ -188,6 +188,11 @@ bot.dialog('create_reminder',[
 bot.dialog('check_reminder',[
 //You use the session.send method to send messages in response to a message from the user.
     function (session){
+        builder.Prompts.text(session, "Do you want to check your shared reminders?");
+        //session.beginDialog('Hi, Who do you want to send the reminder ?');
+        //builder.Prompts.text(session,"Hi, Who do you want to send the reminder ?");
+    },
+    function (session,results){
         // See if it's YES or NO
         //session.dialogData.receiver= results.response;
         var user_map = store.get('user_map');
