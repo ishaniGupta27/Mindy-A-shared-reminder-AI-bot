@@ -108,7 +108,23 @@ var bot = new builder.UniversalBot(connector, [
 */
 
 var bot = new builder.UniversalBot(connector);
+
 bot.dialog('/',[
+    function(session,results){
+        session.send("Welcome!");
+        builder.Prompts.text(session, "You can get/create reminders");
+    },
+    function(session,results){
+      var res = results.response;
+      if (res.includes('create'))
+        session.beginDialog('create_reminder');
+      else if (res.includes('check'))
+        session.beginDialog('check_reminder');
+    }
+
+]);
+
+bot.dialog('create_reminder',[
 //You use the session.send method to send messages in response to a message from the user.
     function (session,args,next){
         var userId = session.message.user.id;
@@ -164,9 +180,11 @@ bot.dialog('/',[
         console.log(store.get());//Log everything in store
     },
 
-]);
+]).triggerAction({
+        matches: /^create$/i
+});
 
-bot.dialog('/query',[
+bot.dialog('check_reminder',[
 //You use the session.send method to send messages in response to a message from the user.
     function (session){
 
@@ -202,8 +220,6 @@ bot.dialog('/query',[
         }  
     },  
 
-]) 
-
-.triggerAction({
+]).triggerAction({
         matches: /^check$/i
 });
