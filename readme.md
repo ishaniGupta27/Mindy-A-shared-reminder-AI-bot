@@ -1,3 +1,7 @@
+## Mindy :
+
+In order to check what the app do , look into mindy.pptx 
+
 ## Use Azure app service editor
 
 1. make code change in the online editor
