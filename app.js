@@ -178,6 +178,7 @@ bot.dialog('create_reminder',[
             //Set reminders, yay!
         }
         console.log(store.get());//Log everything in store
+        session.endDialog();
     },
 
 ]).triggerAction({
@@ -186,13 +187,6 @@ bot.dialog('create_reminder',[
 
 bot.dialog('check_reminder',[
 //You use the session.send method to send messages in response to a message from the user.
-    function (session){
-
-        builder.Prompts.text(session, "Hi, Do you want to check your reminders?");
-        //session.beginDialog('Hi, Who do you want to send the reminder ?');
-        //builder.Prompts.text(session,"Hi, Who do you want to send the reminder ?");
-    },
-  
     function (session, results){
         // See if it's YES or NO
         session.dialogData.receiver= results.response;
@@ -217,7 +211,8 @@ bot.dialog('check_reminder',[
             var text_to_send = "Task 1: "+ reminder_obj[0].task + "<br/>  Created by: " + user_map[reminder_obj[0].created_by];
             var text_to_speak = user_map[reminder_obj[0].created_by]+' wants to remind you to '+reminder_obj[0].task;
             session.say(text_to_send, text_to_speak);
-        }  
+        }
+        session.endDialog();  
     },  
 
 ]).triggerAction({
