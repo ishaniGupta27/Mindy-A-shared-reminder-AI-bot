@@ -63,8 +63,10 @@ bot.dialog('/',[
         //session.beginDialog('What is the reminder you want to send ?');
     },
     function (session, results) {
-        session.dialogData.task = results.response;
-        session.send('Reminder Sent !');
+
+	session.dialogData.task = results.response;
+        session.say('Reminder Sent','Reminder Sent');
+	session.send('Reminder Sent !');
         var reminder_obj = {'task':session.dialogData.task,'receiver':session.dialogData.receiver};
         var user_map = store.get('user_map');
         var user_id = null;
