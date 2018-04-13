@@ -1,7 +1,7 @@
 var restify=require("restify");
 var builder=require("botbuilder");
 var assert= require('assert');
-var clients= require('restify-clients');
+//var clients= require('restify-clients');
 //we are creating a server using restify and it is listening !
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function(){
@@ -27,16 +27,35 @@ server.post('/api/messages/new', con.listen());
 var bot = new builder.UniversalBot(con);
 
 //dialogs are fundamental block to build conversation witht he user
-bot.dialog('/',function(session){
+bot.dialog('/',[
 //You use the session.send method to send messages in response to a message from the user.
-    session.send("Hello World");
-});
+    function (session){
+
+	    session.dialogData.obj={};
+	    builder.Prompts.text(session, "Hi, Who do you want to send the reminder ?");
+	    //session.beginDialog('Hi, Who do you want to send the reminder ?');
+	    //builder.Prompts.text(session,"Hi, Who do you want to send the reminder ?");
+    },
+    function (session, results){
+    	    session.dialogData.obj.receiver= results.response;
+	    builder.Prompts.text(session, "What is the reminder you want to send ?");
+	    //session.beginDialog('What is the reminder you want to send ?');
+    },
+    function (session, results) {
+        session.dialogData.obj.task = results.response;
+        session.send('Reminder Sent !');
+    },
+
+]);
 
 //Server 1 acting as a client 
 //var clients = require('restify-clients');
-var assert= require('assert');
-var cl1 = clients.createJsonClient('http://127.0.0.1:3979');
+//var assert= require('assert');
+/*var cl1 = clients.createJsonClient('http://127.0.0.1:3979');
 cl1.post('/health_check_site', function(err,req,res){
        //assert.ifError(err);
       console.log('%s %d','Connected',res.statusCode);
  });
+ */
+
+
