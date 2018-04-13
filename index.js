@@ -34,11 +34,28 @@ var bot = new builder.UniversalBot(con);
 //dialogs are fundamental block to build conversation witht he user
 bot.dialog('/',[
 //You use the session.send method to send messages in response to a message from the user.
-    function (session){
-
-        builder.Prompts.text(session, "Hi, Who do you want to send the reminder ?");
+    function (session,args,next){
+        var userId = session.message.user.id;
+	var user_map = store.get('user_map');
+	if(!user_map.hasOwnProperty(userId)){
+	   builder.Prompts.text(session, "Hi, What is your cool nickname ?");
+	}else{
+		next();
+	}
+       // builder.Prompts.text(session, "Hi, Who do you want to send the reminder ?");
         //session.beginDialog('Hi, Who do you want to send the reminder ?');
         //builder.Prompts.text(session,"Hi, Who do you want to send the reminder ?");
+    },
+    function(session,results){
+      if(results.response){
+	 var userId= session.message.user.id; 
+         var user_map = store.get('user_map');
+	 user_map[userId] = results.response;
+	 store.set('user_map',user_map);
+	 builder.Prompts.text(session, "Cool, Who do you want to send the reminder ?");
+      }else{
+          builder.Prompts.text(session, "Hi, Who do you want to send the reminder ?");
+      }
     },
     function (session, results){
         session.dialogData.receiver= results.response;
