@@ -120,7 +120,11 @@ bot.dialog('/query',[
         }  
     },  
 
-]);
+]) 
+
+.triggerAction({
+        matches: /^check$/i
+});
 
 
 //Server 1 acting as a client 
