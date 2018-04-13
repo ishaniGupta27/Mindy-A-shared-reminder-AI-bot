@@ -50,6 +50,7 @@ var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azu
 // Create your bot with a function to receive messages from the user
 var store = require('data-store')('reminders');
 //store.del('a');
+store.del({force: true});
 store.set('user_map',{'1234':'abhay','127863':'ishani'});
 /*
 var bot = new builder.UniversalBot(connector, [
@@ -164,3 +165,45 @@ bot.dialog('/',[
     },
 
 ]);
+
+bot.dialog('/query',[
+//You use the session.send method to send messages in response to a message from the user.
+    function (session){
+
+        builder.Prompts.text(session, "Hi, Do you want to check your reminders?");
+        //session.beginDialog('Hi, Who do you want to send the reminder ?');
+        //builder.Prompts.text(session,"Hi, Who do you want to send the reminder ?");
+    },
+  
+    function (session, results){
+        // See if it's YES or NO
+        session.dialogData.receiver= results.response;
+        var user_map = store.get('user_map');
+        user_id = session.message.user.id;
+        console.log('User_id: %s', user_id );
+        reminder_obj = store.get( user_id );
+        console.log( '%s', reminder_obj );
+        if (reminder_obj === undefined){
+            session.say('You have no reminders set', 'You have no reminders set');
+        }
+        else {
+            session.send(' You have '+reminder_obj.length+' reminders set ')
+            /*
+            for ( var i in reminder_obj ){
+                var text_to_send = "Task "+(i+1) +": "+ reminder_obj[i].task + "<br>  Created by: " + user_map[reminder_obj[i].created_by];
+                var text_to_speak = user_map[reminder_obj[i].created_by]+' wants to remind you to '+reminder_obj[i].task;
+                session.say(text_to_send, text_to_speak);
+                console.log('Task:  %s', reminder_obj[i].task );
+            }*/
+
+            var text_to_send = "Task 1: "+ reminder_obj[0].task + "<br/>  Created by: " + user_map[reminder_obj[0].created_by];
+            var text_to_speak = user_map[reminder_obj[0].created_by]+' wants to remind you to '+reminder_obj[0].task;
+            session.say(text_to_send, text_to_speak);
+        }  
+    },  
+
+]) 
+
+.triggerAction({
+        matches: /^check$/i
+});
