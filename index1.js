@@ -28,8 +28,10 @@ var bot = new builder.UniversalBot(con);
 
 //dialogs are fundamental block to build conversation witht he user
 bot.dialog('/',function(session){
-//You use the session.send method to send messages in response to a message from the user.
-    session.send("Hello World");
+
+	//You use the session.send method to send messages in response to a message from the user.
+        console.log(session.message);
+	session.send("Hello World");
 });
 
 //Server 1 acting as a client 
