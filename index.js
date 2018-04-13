@@ -90,6 +90,39 @@ bot.dialog('/',[
 
 ]);
 
+
+bot.dialog('/query',[
+//You use the session.send method to send messages in response to a message from the user.
+    function (session){
+
+        builder.Prompts.text(session, "Hi, Do you want to check your reminders?");
+        //session.beginDialog('Hi, Who do you want to send the reminder ?');
+        //builder.Prompts.text(session,"Hi, Who do you want to send the reminder ?");
+    },
+  
+    function (session, results){
+        // See if it's YES or NO
+        session.dialogData.receiver= results.response;
+        var user_map = store.get('user_map');
+        user_id = session.message.user.id;
+        console.log('User_id: %s', user_id );
+        reminder_obj = store.get( user_id );
+        console.log( '%s', reminder_obj );
+        if (reminder_obj === undefined){
+            session.send('Reminders not set for you')
+        }
+        else {
+            session.send(' You have reminders set ')
+            for ( var i in reminder_obj ){
+                session.send( "Task: " + reminder_obj[i].task + "  Set By: " + reminder_obj[i].created_by  )
+                console.log('Task:  %s', reminder_obj[i].task );
+            }
+        }  
+    },  
+
+]);
+
+
 //Server 1 acting as a client 
 //var clients = require('restify-clients');
 //var assert= require('assert');
