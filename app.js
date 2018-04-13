@@ -221,5 +221,5 @@ bot.dialog('check_reminder',[
     },  
 
 ]).triggerAction({
-        matches: /^get$/i
+        matches: /^check$/i
 });
