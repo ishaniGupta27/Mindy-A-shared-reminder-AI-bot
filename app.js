@@ -158,7 +158,6 @@ bot.dialog('create_reminder',[
         var user_name = results.response;
         user_name = user_name.toLowerCase();
         user_name = user_name.replace('.','');//Voice sometimes appends . at the end
-        user_map[userId] = user_name;
         session.dialogData.receiver= user_name;
         builder.Prompts.text(session, "What is the reminder you want to send ?");
         //session.beginDialog('What is the reminder you want to send ?');
