@@ -112,7 +112,7 @@ var bot = new builder.UniversalBot(connector);
 bot.dialog('/',[
     function(session,results){
         session.send("Welcome!");
-        builder.Prompts.text(session, "You can get/create reminders");
+        builder.Prompts.text(session, "You can check/create reminders");
     },
     function(session,results){
       var res = results.response;
