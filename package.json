@@ -26,6 +26,7 @@
   "homepage": "https://github.com/ishaniGupta27/Ckuiz#readme",
   "dependencies": {
     "botbuilder": "^3.14.1",
+    "data-store": "^1.0.0",
     "restify": "^7.1.1",
     "restify-clients": "^2.0.1",
     "socket.io": "^2.1.0"
