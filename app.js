@@ -187,9 +187,9 @@ bot.dialog('create_reminder',[
 
 bot.dialog('check_reminder',[
 //You use the session.send method to send messages in response to a message from the user.
-    function (session, results){
+    function (session){
         // See if it's YES or NO
-        session.dialogData.receiver= results.response;
+        //session.dialogData.receiver= results.response;
         var user_map = store.get('user_map');
         user_id = session.message.user.id;
         console.log('User_id: %s', user_id );
@@ -216,5 +216,5 @@ bot.dialog('check_reminder',[
     },  
 
 ]).triggerAction({
-        matches: /^check$/i
+        matches: /^get$/i
 });
