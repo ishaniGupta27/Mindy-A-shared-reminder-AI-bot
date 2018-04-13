@@ -142,7 +142,11 @@ bot.dialog('create_reminder',[
       if(results.response){
           var userId= session.message.user.id; 
           var user_map = store.get('user_map');
-          user_map[userId] = results.response;
+          //Lower case the nickname and remove period at the end.
+          var user_name = results.response;
+          user_name = user_name.toLowerCase();
+          user_name = user_name.replace('.','');//Voice sometimes appends . at the end
+          user_map[userId] = user_name;
           store.set('user_map',user_map);
           builder.Prompts.text(session, "Cool, Who do you want to send the reminder ?");
       }else{
